@@ -1,5 +1,5 @@
 QT += core gui widgets xml
-TARGET = Ark
+TARGET = Charm
 TEMPLATE = app
 
 DEFINES -= UNICODE
