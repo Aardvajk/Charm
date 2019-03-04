@@ -1,0 +1,7 @@
+#ifndef DEBUGSETTINGS_H
+#define DEBUGSETTINGS_H
+
+//#define ASSERTIONS
+//#define FUNCTIONTIMERS
+
+#endif // DEBUGSETTINGS_H

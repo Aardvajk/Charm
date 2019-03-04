@@ -1,0 +1,26 @@
+matrix worldviewproj;
+
+struct VS_INPUT
+{
+    vector position : POSITION;
+    float2 texcoord : TEXCOORD;
+    vector diffuse  : COLOR;
+};
+
+struct VS_OUTPUT
+{
+    vector position : POSITION;
+    float2 texcoord : TEXCOORD;
+    vector diffuse  : COLOR;
+};
+
+VS_OUTPUT main(VS_INPUT input)
+{
+    VS_OUTPUT output = (VS_OUTPUT)0;
+
+    output.position = mul(input.position, worldviewproj);
+    output.texcoord = input.texcoord;
+    output.diffuse = input.diffuse;
+
+    return output;
+}

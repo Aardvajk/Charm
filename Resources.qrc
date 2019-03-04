@@ -1,0 +1,31 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>shaders/wireframevertex.txt</file>
+        <file>shaders/screenvertex.txt</file>
+        <file>shaders/basicvertex.txt</file>
+        <file>images/maximize.png</file>
+        <file>images/restore.png</file>
+        <file>images/delete.png</file>
+        <file>images/dragwindowclose.png</file>
+        <file>images/selecttool.png</file>
+        <file>images/scaletool.png</file>
+        <file>images/rotatetool.png</file>
+        <file>images/movetool.png</file>
+        <file>images/extrudetool.png</file>
+        <file>images/dropdownarrow.png</file>
+        <file>images/primitivetool.png</file>
+        <file>images/settings.png</file>
+        <file>images/cursor.png</file>
+        <file>images/charmsmall.png</file>
+        <file>images/painttool.png</file>
+        <file>images/down.png</file>
+        <file>images/up.png</file>
+        <file>images/downdis.png</file>
+        <file>images/updis.png</file>
+        <file>images/camera.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>images/down.png</file>
+        <file>images/up.png</file>
+    </qresource>
+</RCC>

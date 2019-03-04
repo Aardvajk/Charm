@@ -1,0 +1,62 @@
+matrix worldview;
+matrix worldviewproj;
+vector reflect;
+vector merge;
+bool smooth;
+int paint;
+
+struct VS_INPUT
+{
+    vector position     : POSITION;
+    vector normal       : NORMAL0;
+    vector sharedNormal : NORMAL1;
+    vector diffuse_j    : COLOR0;
+    vector diffuse_p    : COLOR1;
+};
+
+struct VS_OUTPUT
+{
+    vector position : POSITION;
+    vector diffuse  : COLOR;
+};
+
+vector light = vector(0, 0, -1, 0);
+
+VS_OUTPUT main(VS_INPUT input)
+{
+    VS_OUTPUT output = (VS_OUTPUT)0;
+
+    vector position = input.position;
+
+    position.x *= reflect.x;
+    position.y *= reflect.y;
+    position.z *= reflect.z;
+
+    output.position = mul(position, worldviewproj);
+
+    vector normal = smooth ? input.sharedNormal : input.normal;
+
+    normal.x *= reflect.x;
+    normal.y *= reflect.y;
+    normal.z *= reflect.z;
+
+    if(merge.x && abs(position.x) < 0.05) normal.x = 0;
+    if(merge.y && abs(position.y) < 0.05) normal.y = 0;
+    if(merge.z && abs(position.z) < 0.05) normal.z = 0;
+
+    normal.w = 0;
+    normal = mul(normal, worldview);
+
+    float s = dot(light, normal);
+    if(s < 0) s = 0;
+
+    float c = 0.1 + (0.7 * s);
+
+    vector d = vector(1, 1, 1, 1);
+    if(paint == 1) d = input.diffuse_p;
+    if(paint == 2) d = input.diffuse_j;
+	
+    output.diffuse = vector(d.x * c, d.y * c, d.z * c, 1);
+
+    return output;
+}

@@ -1,0 +1,31 @@
+float halfwidth;
+float halfheight;
+
+struct VS_INPUT
+{
+    vector position : POSITION;
+    float2 texcoord : TEXCOORD;
+    vector diffuse  : COLOR;
+};
+
+struct VS_OUTPUT
+{
+    vector position : POSITION;
+    float2 texcoord : TEXCOORD;
+    vector diffuse  : COLOR;
+};
+
+VS_OUTPUT main(VS_INPUT input)
+{
+    VS_OUTPUT output = (VS_OUTPUT)0;
+
+    output.position.x = (input.position.x - halfwidth) / halfwidth;
+    output.position.y = ((input.position.y - halfheight) / halfheight) * -1;
+    output.position.z = 0;
+    output.position.w = 1;
+
+    output.texcoord = input.texcoord;
+    output.diffuse = input.diffuse;
+
+    return output;
+}
