@@ -35,7 +35,7 @@ public:
 
     virtual
     QWidget*
-    optionsWidget() const = 0;
+    optionsWidget() = 0;
 
     virtual
     void

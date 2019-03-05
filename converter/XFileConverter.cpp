@@ -38,7 +38,7 @@ XFileConverter::toModel(const QString &path, Model *model)
 
     UINT vertSize = D3DXGetDeclVertexSize(decl, 0);
 
-    WORD posOffset = -1;
+    int posOffset = -1;
     for(unsigned int i = 0; i < D3DXGetDeclLength(decl) ; ++i)
     {
         if(decl[i].Usage == D3DDECLUSAGE_POSITION)

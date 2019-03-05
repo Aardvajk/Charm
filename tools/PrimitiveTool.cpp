@@ -92,6 +92,10 @@ PrimitiveTool::PrimitiveTool(Settings *settings, ActionList *actions, Model *mod
     connect(model, SIGNAL(modeChanged()), SLOT(modeChanged()));
 }
 
+PrimitiveTool::~PrimitiveTool()
+{
+}
+
 QPixmap
 PrimitiveTool::image() const
 {
@@ -105,7 +109,7 @@ PrimitiveTool::name() const
 }
 
 QWidget*
-PrimitiveTool::optionsWidget() const
+PrimitiveTool::optionsWidget()
 {
     return options.get();
 }

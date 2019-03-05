@@ -5,7 +5,7 @@
 
 #include "model/Edge.h"
 
-#include <memory>
+#include "common/ScopedPtr.h"
 
 class ActionList;
 class AxisWidget;
@@ -19,6 +19,7 @@ class ExtrudeTool : public BaseModelViewTool
 
 public:
     ExtrudeTool(Settings *settings, ActionList *actions, Model *model, ModelViewGrid *viewGrid, QObject *parent = 0);
+    virtual ~ExtrudeTool();
 
     virtual
     QPixmap
@@ -30,7 +31,7 @@ public:
 
     virtual
     QWidget*
-    optionsWidget() const;
+    optionsWidget();
 
     virtual
     void
@@ -67,7 +68,7 @@ private:
     QVector<Edge>
     getEdges() const;
 
-    std::auto_ptr<QWidget> options;
+    ScopedPtr<QWidget> options;
     AxisWidget *axisWidget;
     PanelComboBox *typeBox;
 

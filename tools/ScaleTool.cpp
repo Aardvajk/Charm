@@ -64,6 +64,10 @@ ScaleTool::ScaleTool(Settings *settings, ActionList *actions, Model *model, Mode
     connect(model, SIGNAL(modeChanged()), SLOT(modeChanged()));
 }
 
+ScaleTool::~ScaleTool()
+{
+}
+
 QPixmap
 ScaleTool::image() const
 {
@@ -77,7 +81,7 @@ ScaleTool::name() const
 }
 
 QWidget*
-ScaleTool::optionsWidget() const
+ScaleTool::optionsWidget()
 {
     return options.get();
 }

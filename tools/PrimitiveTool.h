@@ -3,7 +3,7 @@
 
 #include "tools/BaseModelViewTool.h"
 
-#include <memory>
+#include "common/ScopedPtr.h"
 
 class ActionList;
 class PanelListBox;
@@ -17,6 +17,7 @@ class PrimitiveTool : public BaseModelViewTool
 
 public:
     PrimitiveTool(Settings *settings, ActionList *actions, Model *model, ModelViewGrid *viewGrid, QObject *parent = 0);
+    virtual ~PrimitiveTool();
 
     virtual
     QPixmap
@@ -28,7 +29,7 @@ public:
 
     virtual
     QWidget*
-    optionsWidget() const;
+    optionsWidget();
 
     virtual
     void
@@ -65,7 +66,7 @@ private slots:
     createClicked();
 
 private:
-    std::auto_ptr<QWidget> options;
+    ScopedPtr<QWidget> options;
 
     PanelListBox *list;
     QVector<Primitive*> primitives;

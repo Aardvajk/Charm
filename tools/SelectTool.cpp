@@ -70,6 +70,10 @@ SelectTool::SelectTool(Settings *settings, ActionList *actions, Model *model, Mo
     connect(model, SIGNAL(modeChanged()), SLOT(modeChanged()));
 }
 
+SelectTool::~SelectTool()
+{
+}
+
 QPixmap
 SelectTool::image() const
 {
@@ -83,7 +87,7 @@ SelectTool::name() const
 }
 
 QWidget*
-SelectTool::optionsWidget() const
+SelectTool::optionsWidget()
 {
     return options.get();
 }

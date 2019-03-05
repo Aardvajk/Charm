@@ -79,7 +79,7 @@ KeySequenceWidget::setSequence(const QKeySequence &sequence)
 {
     seqs.clear();
 
-    for(uint i = 0; i < sequence.count(); ++i)
+    for(int i = 0; i < sequence.count(); ++i)
     {
         seqs.append(QKeySequence(sequence[i]));
     }

@@ -15,6 +15,8 @@
 #include "converter/TileConverter.h"
 #include "converter/LevelConverter.h"
 
+#include "common/ScopedPtr.h"
+
 #include <QtCore/QFileInfo>
 
 #include <memory>
@@ -46,16 +48,16 @@ ConvertOperations::input()
         return;
     }
 
-    std::auto_ptr<Converter> converter;
+    ScopedPtr<Converter> converter;
 
     QFileInfo info(path);
     if(info.suffix().toLower() == "x")
     {
-        converter = std::auto_ptr<Converter>(new XFileConverter(graphics));
+        converter = new XFileConverter(graphics);
     }
     else if(info.suffix().toLower() == "obj")
     {
-        converter = std::auto_ptr<Converter>(new ObjFileConverter());
+        converter = new ObjFileConverter();
     }
     else
     {
@@ -85,19 +87,19 @@ ConvertOperations::output()
 bool
 ConvertOperations::outputModel(const ExportDetails &details)
 {
-    std::auto_ptr<Converter> converter;
+    ScopedPtr<Converter> converter;
 
     switch(details.type)
     {
-        case 1: converter = std::auto_ptr<Converter>(new RawBufferConverter(false, false)); break;
-        case 2: converter = std::auto_ptr<Converter>(new StaticBufferConverter(false, false, false)); break;
-        case 3: converter = std::auto_ptr<Converter>(new StaticBufferConverter(true, false, false)); break;
-        case 4: converter = std::auto_ptr<Converter>(new RawBufferConverter(true, false)); break;
-        case 5: converter = std::auto_ptr<Converter>(new RawBufferConverter(true, true)); break;
-        case 6: converter = std::auto_ptr<Converter>(new TileConverter()); break;
-        case 7: converter = std::auto_ptr<Converter>(new StaticBufferConverter(false, true, false)); break;
-        case 8: converter = std::auto_ptr<Converter>(new LevelConverter()); break;
-        case 9: converter = std::auto_ptr<Converter>(new StaticBufferConverter(false, true, true)); break;
+        case 1: converter = new RawBufferConverter(false, false); break;
+        case 2: converter = new StaticBufferConverter(false, false, false); break;
+        case 3: converter = new StaticBufferConverter(true, false, false); break;
+        case 4: converter = new RawBufferConverter(true, false); break;
+        case 5: converter = new RawBufferConverter(true, true); break;
+        case 6: converter = new TileConverter(); break;
+        case 7: converter = new StaticBufferConverter(false, true, false); break;
+        case 8: converter = new LevelConverter(); break;
+        case 9: converter = new StaticBufferConverter(false, true, true); break;
 
         default: return false;
     }

@@ -5,10 +5,9 @@
 
 #include "common/VariantSet.h"
 #include "common/Mode.h"
+#include "common/ScopedPtr.h"
 
 #include <QtCore/QMap>
-
-#include <memory>
 
 class ActionList;
 class BoxMarquee;
@@ -30,6 +29,7 @@ class SelectTool : public BaseModelViewTool
 
 public:
     SelectTool(Settings *settings, ActionList *actions, Model *model, ModelViewGrid *viewGrid, float jointRadius, QObject *parent = 0);
+    virtual ~SelectTool();
 
     virtual
     QPixmap
@@ -41,7 +41,7 @@ public:
 
     virtual
     QWidget*
-    optionsWidget() const;
+    optionsWidget();
 
     virtual
     void
@@ -82,7 +82,7 @@ private:
     BoxMarquee *marquee;
     Qt::MouseButton startButton;
 
-    std::auto_ptr<QWidget> options;
+    ScopedPtr<QWidget> options;
     ToggleBox *elementBox;
     QCheckBox *frontOnlyCheck;
 

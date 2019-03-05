@@ -3,7 +3,7 @@
 
 #include "tools/BaseModelViewTool.h"
 
-#include <memory>
+#include "common/ScopedPtr.h"
 
 class ActionList;
 class AxisWidget;
@@ -18,6 +18,7 @@ class RotateTool : public BaseModelViewTool
 
 public:
     RotateTool(Settings *settings, ActionList *actions, Model *model, ModelViewGrid *viewGrid, QObject *parent = 0);
+    virtual ~RotateTool();
 
     virtual
     QPixmap
@@ -29,7 +30,7 @@ public:
 
     virtual
     QWidget*
-    optionsWidget() const;
+    optionsWidget();
 
     virtual
     void
@@ -63,7 +64,7 @@ private:
     void
     endCommands();
 
-    std::auto_ptr<QWidget> options;
+    ScopedPtr<QWidget> options;
     AxisWidget *axisWidget;
 
     LineHandle *handle;

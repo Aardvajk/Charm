@@ -58,6 +58,10 @@ MoveTool::MoveTool(Settings *settings, ActionList *actions, Model *model, ModelV
     connect(model, SIGNAL(modeChanged()), SLOT(modeChanged()));
 }
 
+MoveTool::~MoveTool()
+{
+}
+
 QPixmap
 MoveTool::image() const
 {
@@ -71,7 +75,7 @@ MoveTool::name() const
 }
 
 QWidget*
-MoveTool::optionsWidget() const
+MoveTool::optionsWidget()
 {
     return options.get();
 }

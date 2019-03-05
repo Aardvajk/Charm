@@ -10,6 +10,8 @@
 
 #include <windows.h>
 
+#include "common/ScopedPtr.h"
+
 #include "maths/Maths.h"
 
 class DataOutStream
@@ -40,7 +42,7 @@ public:
 protected:
     DataOutStream(std::ostream *o = 0) : os(o) { }
 
-    std::auto_ptr<std::ostream> os;
+    ScopedPtr<std::ostream> os;
 };
 
 class DataOutFileStream : public DataOutStream
@@ -75,7 +77,7 @@ public:
 protected:
     DataInStream(std::istream *i) : is(i) { }
 
-    std::auto_ptr<std::istream> is;
+    ScopedPtr<std::istream> is;
 };
 
 class DataInFileStream : public DataInStream

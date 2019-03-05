@@ -381,7 +381,8 @@ HEADERS  += MainWindow.h \
     converter/TileConverter.h \
     dialogs/PositionDialog.h \
     common/Optional.h \
-    converter/LevelConverter.h
+    converter/LevelConverter.h \
+    common/ScopedPtr.h
 
 OTHER_FILES +=
 

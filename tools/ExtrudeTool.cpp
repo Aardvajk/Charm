@@ -59,6 +59,10 @@ ExtrudeTool::ExtrudeTool(Settings *settings, ActionList *actions, Model *model, 
     connect(model, SIGNAL(modeChanged()), SLOT(modeChanged()));
 }
 
+ExtrudeTool::~ExtrudeTool()
+{
+}
+
 QPixmap
 ExtrudeTool::image() const
 {
@@ -72,7 +76,7 @@ ExtrudeTool::name() const
 }
 
 QWidget*
-ExtrudeTool::optionsWidget() const
+ExtrudeTool::optionsWidget()
 {
     return options.get();
 }

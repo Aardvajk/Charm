@@ -56,6 +56,10 @@ RotateTool::RotateTool(Settings *settings, ActionList *actions, Model *model, Mo
     connect(model, SIGNAL(modeChanged()), SLOT(modeChanged()));
 }
 
+RotateTool::~RotateTool()
+{
+}
+
 QPixmap
 RotateTool::image() const
 {
@@ -69,7 +73,7 @@ RotateTool::name() const
 }
 
 QWidget*
-RotateTool::optionsWidget() const
+RotateTool::optionsWidget()
 {
     return options.get();
 }
