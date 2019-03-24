@@ -18,7 +18,7 @@ TileConverter::toModel(const QString &path, Model *model)
 }
 
 bool
-TileConverter::fromModel(float scale, const QString &path, Model *model)
+TileConverter::fromModel(float scale, const Vec3 &offset, const QString &path, Model *model)
 {
     DataOutFileStream ds(path.toStdString());
     if(ds.fail())
@@ -27,16 +27,16 @@ TileConverter::fromModel(float scale, const QString &path, Model *model)
         return false;
     }
 
-    Vec3 offset(0, 0, 0);
+    Vec3 jointOffset(0, 0, 0);
     if(model->jointCount())
     {
-        offset = model->joint(0).pos;
+        jointOffset = model->joint(0).pos;
     }
 
     ds << size_t(model->vertexCount());
     for(int v = 0; v < model->vertexCount(); ++v)
     {
-        Vec3 pos = (model->vertex(v).pos - offset) * scale;
+        Vec3 pos = ((model->vertex(v).pos - jointOffset) * scale) + offset;
 
         ds << pos;
 

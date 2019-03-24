@@ -5,6 +5,7 @@
 #include "common/DataStream.h"
 #include "common/Color.h"
 
+#include <QtCore/QTextStream>
 #include <QtCore/QDebug>
 
 RawBufferConverter::RawBufferConverter(bool boneNames, bool faceColors) : boneNames(boneNames), faceColors(faceColors)
@@ -18,7 +19,7 @@ RawBufferConverter::toModel(const QString &path, Model *model)
 }
 
 bool
-RawBufferConverter::fromModel(float scale, const QString &path, Model *model)
+RawBufferConverter::fromModel(float scale, const Vec3 &offset, const QString &path, Model *model)
 {
     DataOutFileStream ds(path.toStdString());
     if(ds.fail())
@@ -27,14 +28,14 @@ RawBufferConverter::fromModel(float scale, const QString &path, Model *model)
         return false;
     }
 
-    ds << size_t(model->faceCount() * 3);
+    ds << unsigned((model->faceCount() * 3) * 44); // !!! MANUAL VERTEX SIZE
     for(int f = 0; f < model->faceCount(); ++f)
     {
         for(int g = 0; g < 3; ++g)
         {
             int i = model->face(f).indices[g];
 
-            ds << model->vertex(i).pos * scale;
+            ds << (model->vertex(i).pos * scale) + offset;
             ds << model->vertexNormal(i);
 
             if(faceColors)

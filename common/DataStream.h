@@ -22,7 +22,7 @@ public:
     DataOutStream &operator<<(char c){ os->write(reinterpret_cast<const char*>(&c), sizeof(char)); return *this; }
     DataOutStream &operator<<(unsigned char c){ os->write(reinterpret_cast<const char*>(&c), sizeof(unsigned char)); return *this; }
     DataOutStream &operator<<(int i){ os->write(reinterpret_cast<const char*>(&i), sizeof(int)); return *this; }
-    DataOutStream &operator<<(float f){ os->write(reinterpret_cast<const char*>(&f), sizeof(float)); return *this; }
+    DataOutStream &operator<<(float f){ os->write(reinterpret_cast<const char*>(&f), sizeof(float)); if(os->fail()) throw 0; return *this; }
     DataOutStream &operator<<(DWORD d){ os->write(reinterpret_cast<const char*>(&d), sizeof(DWORD)); return *this; }
     DataOutStream &operator<<(ushort u){ os->write(reinterpret_cast<const char*>(&u), sizeof(ushort)); return *this; }
     DataOutStream &operator<<(uint s){ os->write(reinterpret_cast<const char*>(&s), sizeof(uint)); return *this; }
@@ -57,7 +57,7 @@ public:
     bool fail() const { return is->fail(); }
 
     DataInStream &operator>>(int &i){ is->read(reinterpret_cast<char*>(&i), sizeof(int)); return *this; }
-    DataInStream &operator>>(float &f){ is->read(reinterpret_cast<char*>(&f), sizeof(float)); return *this; }
+    DataInStream &operator>>(float &f){ is->read(reinterpret_cast<char*>(&f), sizeof(float)); if(is->fail()) throw 0; return *this; }
     DataInStream &operator>>(DWORD &d){ is->read(reinterpret_cast<char*>(&d), sizeof(DWORD)); return *this; }
     DataInStream &operator>>(ushort &u){ is->read(reinterpret_cast<char*>(&u), sizeof(ushort)); return *this; }
     DataInStream &operator>>(uint &s){ is->read(reinterpret_cast<char*>(&s), sizeof(uint)); return *this; }

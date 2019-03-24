@@ -5,6 +5,8 @@
 
 #include "model/Group.h"
 
+#include "maths/Vec3.h"
+
 class QComboBox;
 class QLineEdit;
 
@@ -12,11 +14,15 @@ class ExportDetails
 {
 public:
     ExportDetails();
-    ExportDetails(int type, const QString &path, float scale);
+    ExportDetails(int type, const QString &path, float scale, const Vec3 &offset);
+
+    bool operator==(const ExportDetails &o) const;
+    bool operator!=(const ExportDetails &o) const { return !(*this == o); }
 
     int type;
     QString path;
     float scale;
+    Vec3 offset;
 };
 
 class ExportDialog : public QDialog
@@ -39,6 +45,7 @@ private slots:
 private:
     QComboBox *typeCombo;
     QLineEdit *scaleEdit;
+    QLineEdit *offsetEdit;
     QLineEdit *pathEdit;
 
     QPushButton *okButton;

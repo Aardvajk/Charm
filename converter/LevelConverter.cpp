@@ -16,7 +16,7 @@ LevelConverter::toModel(const QString &path, Model *model)
 }
 
 bool
-LevelConverter::fromModel(float scale, const QString &path, Model *model)
+LevelConverter::fromModel(float scale, const Vec3 &offset, const QString &path, Model *model)
 {
     DataOutFileStream ds(path.toStdString());
     if(ds.fail())
@@ -32,7 +32,7 @@ LevelConverter::fromModel(float scale, const QString &path, Model *model)
         {
             int i = model->face(f).indices[g];
 
-            ds << (model->vertex(i).pos) * scale;
+            ds << ((model->vertex(i).pos) * scale) + offset;
             ds << model->vertexNormal(i);
             ds << toD3dColor(model->palette(model->face(f).palette));
             ds << 0.0f << 0.0f;

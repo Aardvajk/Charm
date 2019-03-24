@@ -12,12 +12,17 @@
 
 #include "gui/PanelSeparator.h"
 
-ExportDetails::ExportDetails() : type(1), scale(1.0f)
+ExportDetails::ExportDetails() : type(1), scale(1.0f), offset(0, 0, 0)
 {
 }
 
-ExportDetails::ExportDetails(int type, const QString &path, float scale) : type(type), path(path), scale(scale)
+ExportDetails::ExportDetails(int type, const QString &path, float scale, const Vec3 &offset) : type(type), path(path), scale(scale), offset(offset)
 {
+}
+
+bool ExportDetails::operator==(const ExportDetails &o) const
+{
+    return type == o.type && path == o.path && scale == o.scale && offset == o.offset;
 }
 
 ExportDialog::ExportDialog(const ExportDetails &details, QWidget *parent)
@@ -54,6 +59,9 @@ ExportDialog::ExportDialog(const ExportDetails &details, QWidget *parent)
 
     scaleEdit->setText(QString::number(det.scale, 'f', 3));
 
+    offsetEdit = new QLineEdit();
+    offsetEdit->setText(QString("%1, %2, %3").arg(QString::number(det.offset.x, 'f', 3)).arg(QString::number(det.offset.y, 'f', 3)).arg(QString::number(det.offset.z, 'f', 3)));
+
     QWidget *pathWidget = new QWidget();
     QHBoxLayout *pathLayout = new QHBoxLayout(pathWidget);
     pathLayout->setMargin(0);
@@ -73,6 +81,7 @@ ExportDialog::ExportDialog(const ExportDetails &details, QWidget *parent)
 
     form->addRow("Type", typeCombo);
     form->addRow("Scale", scaleEdit);
+    form->addRow("Offset", offsetEdit);
     form->addRow("Path", pathWidget);
 
     layout->addLayout(form);
@@ -114,6 +123,16 @@ ExportDialog::okClicked()
     det.type = typeCombo->itemData(typeCombo->currentIndex()).toInt();
     det.scale = scaleEdit->text().toFloat();
     det.path = pathEdit->text();
+
+    det.offset = Vec3(0, 0, 0);
+
+    auto list = offsetEdit->text().split(",");
+    if(list.count() == 3)
+    {
+        det.offset.x = list[0].trimmed().toFloat();
+        det.offset.y = list[1].trimmed().toFloat();
+        det.offset.z = list[2].trimmed().toFloat();
+    }
 
     accept();
 }

@@ -14,7 +14,7 @@ public:
 
     virtual
     bool
-    fromModel(float scale, const QString &path, Model *model);
+    fromModel(float scale, const Vec3 &offset, const QString &path, Model *model);
 };
 
 #endif // OBJFILECONVERTER_H

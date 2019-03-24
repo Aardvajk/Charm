@@ -45,6 +45,12 @@ ModelData::loadFromFile(const QString &path)
     {
         is >> lastExportDetails.type;
         is >> lastExportDetails.scale;
+
+        if(version > 9)
+        {
+            auto &v = lastExportDetails.offset;
+            is >> v.x >> v.y >> v.z;
+        }
     }
 
     if(version >= 5)
@@ -181,10 +187,14 @@ ModelData::saveToFile(const QString &path) const
 
     QDataStream os(&file);
 
-    os << 9;
+    os << 10;
 
     os << lastExportDetails.type;
     os << lastExportDetails.scale;
+
+    auto v = lastExportDetails.offset;
+    os << v.x << v.y << v.z;
+
     os << lastExportDetails.path;
 
     os << vertices.count();

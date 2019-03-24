@@ -348,6 +348,8 @@ private:
 
     bool showCursorFlag;
     bool showNormalsFlag;
+
+    bool forceSave;
 };
 
 #endif // MODEL_H

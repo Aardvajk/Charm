@@ -104,7 +104,7 @@ ConvertOperations::outputModel(const ExportDetails &details)
         default: return false;
     }
 
-    if(!converter->fromModel(details.scale, details.path, model))
+    if(!converter->fromModel(details.scale, details.offset, details.path, model))
     {
         ErrorDialog::show(parentWidget, "Unable to export file", converter->error());
         return false;

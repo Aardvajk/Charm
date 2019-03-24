@@ -74,7 +74,7 @@ ObjFileConverter::toModel(const QString &path, Model *model)
 }
 
 bool
-ObjFileConverter::fromModel(float scale, const QString &path, Model *model)
+ObjFileConverter::fromModel(float scale, const Vec3 &offset, const QString &path, Model *model)
 {
     return false;
 }

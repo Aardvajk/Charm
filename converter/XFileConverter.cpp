@@ -141,7 +141,7 @@ XFileConverter::toModel(const QString &path, Model *model)
 }
 
 bool
-XFileConverter::fromModel(float scale, const QString &path, Model *model)
+XFileConverter::fromModel(float scale, const Vec3 &offset, const QString &path, Model *model)
 {
     return false;
 }

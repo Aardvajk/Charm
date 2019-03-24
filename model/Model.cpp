@@ -28,7 +28,8 @@ Model::Model(ActionList *actions, QObject *parent)
       poseChangedFlag(false),
       useKey(false),
       showCursorFlag(false),
-      showNormalsFlag(false)
+      showNormalsFlag(false),
+      forceSave(false)
 {
     undoList = new UndoList(this);
 
@@ -425,7 +426,7 @@ Model::referencePoint() const
 bool
 Model::modified() const
 {
-    return undoList->isModified();
+    return undoList->isModified() || forceSave;
 }
 
 void
@@ -470,6 +471,12 @@ void
 Model::setSavePoint()
 {
     undoList->setSavePoint();
+
+    if(forceSave)
+    {
+        forceSave = false;
+        emit modifiedStateChanged(false);
+    }
 }
 
 void
@@ -485,7 +492,13 @@ Model::setPath(const QString &path)
 void
 Model::setLastExportDetails(const ExportDetails &details)
 {
-    data.lastExportDetails = details;
+    if(data.lastExportDetails != details)
+    {
+        data.lastExportDetails = details;
+        forceSave = true;
+
+        emit modifiedStateChanged(true);
+    }
 }
 
 void

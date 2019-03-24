@@ -18,7 +18,7 @@ StaticBufferConverter::toModel(const QString &path, Model *model)
 }
 
 bool
-StaticBufferConverter::fromModel(float scale, const QString &path, Model *model)
+StaticBufferConverter::fromModel(float scale, const Vec3 &offset, const QString &path, Model *model)
 {
     DataOutFileStream ds(path.toStdString());
     if(ds.fail())
@@ -27,10 +27,10 @@ StaticBufferConverter::fromModel(float scale, const QString &path, Model *model)
         return false;
     }
 
-    Vec3 offset(0, 0, 0);
+    Vec3 jointOffset(0, 0, 0);
     if(model->jointCount())
     {
-        offset = model->joint(0).pos;
+        jointOffset = model->joint(0).pos;
     }
 
     if(indexed)
@@ -38,7 +38,7 @@ StaticBufferConverter::fromModel(float scale, const QString &path, Model *model)
         ds << size_t(model->vertexCount());
         for(int v = 0; v < model->vertexCount(); ++v)
         {
-            ds << (model->vertex(v).pos - offset) * scale;
+            ds << ((model->vertex(v).pos - jointOffset) * scale) + offset;
             ds << model->vertexNormal(v);
 
             const QVector<int> &faces = model->facesContainingVertex(v);
@@ -76,7 +76,7 @@ StaticBufferConverter::fromModel(float scale, const QString &path, Model *model)
             {
                 int i = model->face(f).indices[g];
 
-                ds << (model->vertex(i).pos - offset) * scale;
+                ds << (model->vertex(i).pos - jointOffset) * scale;
                 ds << model->vertexNormal(i);
 
                 ds << toD3dColor(model->palette(model->face(f).palette));

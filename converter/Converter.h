@@ -1,6 +1,8 @@
 #ifndef CONVERTER_H
 #define CONVERTER_H
 
+#include "maths/Vec3.h"
+
 #include <QtCore/QString>
 
 class Model;
@@ -16,7 +18,7 @@ public:
 
     virtual
     bool
-    fromModel(float scale, const QString &path, Model *model) = 0;
+    fromModel(float scale, const Vec3 &offset, const QString &path, Model *model) = 0;
 
     QString
     error() const { return err; }
