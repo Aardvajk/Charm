@@ -62,33 +62,33 @@ RawBufferConverter::fromModel(float scale, const Vec3 &offset, const QString &pa
         }
     }
 
-    ds << unsigned(model->jointCount());
+    ds << std::size_t(model->jointCount());
     for(int i = 0; i < model->jointCount(); ++i)
     {
         if(boneNames) ds << model->joint(i).details.name.toStdString();
         ds << model->joint(i).pos * scale << static_cast<std::uint8_t>(model->joint(i).details.parent);
     }
 
-    ds << unsigned(model->animationCount());
+    ds << std::size_t(model->animationCount());
     for(int i = 0; i < model->animationCount(); ++i)
     {
-        ds << model->animation(i).details().name.toStdString() << unsigned(model->animation(i).frames()) << model->animation(i).duration();
+        ds << model->animation(i).details().name.toStdString() << std::size_t(model->animation(i).frames()) << model->animation(i).duration();
 
-        ds << unsigned(model->animation(i).keyFrameCount());
+        ds << std::size_t(model->animation(i).keyFrameCount());
         for(int j = 0; j < model->animation(i).keyFrameCount(); ++j)
         {
             KeyFrame f = model->animation(i).keyFrame(j);
 
             ds << f.position() - 1.0f;
 
-            ds << unsigned(f.count());
+            ds << std::size_t(f.count());
             for(int k = 0; k < f.count(); ++k)
             {
                 ds << f.transform(k).rotation << f.transform(k).translation * scale;
             }
         }
 
-        ds << unsigned(model->animation(i).eventCount());
+        ds << std::size_t(model->animation(i).eventCount());
         for(int j = 0; j < model->animation(i).eventCount(); ++j)
         {
             AnimationEvent e = model->animation(i).event(j);
