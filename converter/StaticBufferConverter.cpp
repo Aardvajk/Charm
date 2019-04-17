@@ -69,7 +69,7 @@ StaticBufferConverter::fromModel(float scale, const Vec3 &offset, const QString 
     }
     else
     {
-        ds << size_t(model->faceCount() * 3);
+        ds << unsigned((model->faceCount() * 3) * 48); // manual vertex size
         for(int f = 0; f < model->faceCount(); ++f)
         {
             for(int g = 0; g < 3; ++g)
