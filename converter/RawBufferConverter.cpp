@@ -28,7 +28,7 @@ RawBufferConverter::fromModel(float scale, const Vec3 &offset, const QString &pa
         return false;
     }
 
-    ds << unsigned((model->faceCount() * 3) * 44); // !!! MANUAL VERTEX SIZE
+    ds << unsigned((model->faceCount() * 3) * (faceColors ? 48 : 44)); // !!! MANUAL VERTEX SIZE
     for(int f = 0; f < model->faceCount(); ++f)
     {
         for(int g = 0; g < 3; ++g)
